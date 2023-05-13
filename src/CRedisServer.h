@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <vector>
 #include <hiredis.h>
@@ -18,5 +19,20 @@ enum REPLY
 
 class CRedisServer
 {
-    
+public:
+    CRedisServer();
+    ~CRedisServer();
+    int Connect(const std::string& ip, int port);
+    int Reconnect();
+    int SetExpire(const char* key, int expire);
+    redisReply* RedisCommand(const char* command);
+    redisReply* RedisCommandArgv(std::vector<std::string>& v);
+    redisReply* RedisVCommand(char const* query, ...);
+    int SetTimeout(struct timeval tv);
+
+private:
+    std::string m_strIp;
+    int m_nPort;
+    redisContext* m_pRedisConn;     //连接hiredis
+    redisReply* m_pRedisReply;      //回复hiredis
 };
