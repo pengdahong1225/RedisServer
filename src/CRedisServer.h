@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <hiredis/hiredis.h>>
+#include <hiredis.h>
 
 enum REPLY
 {
